@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+# frontend
+frontend/node_modules
+
+# backend
+backend/backend/__pycache__/*.pyc
+backend/backend/data/__pycache__/*.pyc
+backend/backend/data/migrations/__pycache__/*.pyc
+
+backend/backend/data/dataFile
+
+backend/backend/data/dataFile/k_locations_selection/inverted_traj_index.p
+backend/backend/data/dataFile/k_locations_selection/traj_db_set.p
+backend/backend/data/dataFile/k_locations_selection/vertex_vertex_index.p
+=======
+.DS_Store
+
+# frontend
+frontend/node_modules
+
+# backend
+backend/backend/__pycache__/*.pyc
+backend/backend/data/__pycache__/*.pyc
+backend/backend/data/migrations/__pycache__/*.pyc
+
+backend/backend/data/dataFile
+>>>>>>> 2389ea8fcbb92c6ac1be7f869fd4f55423abd639
