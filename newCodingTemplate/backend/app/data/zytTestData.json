@@ -1,0 +1,18 @@
+{
+  "nodes": [{
+    "label": "13362:SOSC:soyimin",
+    "dept": "SOSC",
+    "uniqueID": "13362",
+    "fullname": "",
+    "id": 190,
+    "itsc": "soyimin"
+  }, {
+    "label": "12390:CSE:lixin",
+    "dept": "CSE",
+    "uniqueID": "12390",
+    "fullname": "Li, Xin",
+    "id": 341,
+    "itsc": "lixin"
+  }
+  ]
+}
