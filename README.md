@@ -411,10 +411,12 @@ def get_video_info(self, video_id):
 ** (3) 判断是否能获取数据 **    
   
 直接用浏览器访问数据请求地址，例如: http://127.0.0.1:5010/stock/daily/  
-如果成功，将会看到一个数据页面，运行后端的命令行也会有提示:
-<img src="./images/backend_debug.png" style="height:200px"> </img>   
+如果成功，将会看到一个数据页面，运行后端的命令行也会有提示:  
   
+<img src="./images/backend_debug.png" style="height:200px"> </img>   
+   
 <img src="./images/backend_debug_cmd.png" style="height:150px"> </img>   
+  
 如果失败，网页无法打开，命令行也会报错  
 
 ## 案例
