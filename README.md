@@ -46,7 +46,8 @@ Anaconda：https://www.anaconda.com/products/distribution
 Anaconda默认的下载源在国外，访问较慢，可以换成清华源：https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/  
 安装flask：在命令行中执行 conda install flask 或 pip install flask  
 
-### 运行框架
+### 运行框架  
+准备两个命令行终端，一个前端，一个后端，不要关闭
 #### 运行前端  
 以下操作在命令行中进行:  
 1. 进入目录 .../newCodingTemplate/frontend/
@@ -62,7 +63,10 @@ Anaconda默认的下载源在国外，访问较慢，可以换成清华源：htt
 3. 运行成功结果  
 
 <img src="./images/backend_success.png" style="height:300px"> </img> 
-
+  
+前后端均运行成功后，用浏览器访问前端命令行中显示的地址，能看到以下页面：  
+<img src="./images/success.png" style="height:300px"> </img> 
+  
 ### 可能遇到的问题
 1. 前端报错
 
@@ -463,13 +467,15 @@ class DataService(object):   #定义DataService类
 
 ```  
       
-** (3) 判断是否能获取数据 **    
+**(3) 判断是否能获取数据**    
   
 直接用浏览器访问数据请求地址，例如: http://127.0.0.1:5010/stock/daily/  
-如果成功，将会看到一个数据页面，运行后端的命令行也会有提示:
-<img src="./images/backend_debug.png" style="height:200px"> </img>   
+如果成功，将会看到一个数据页面，运行后端的命令行也会有提示:  
   
+<img src="./images/backend_debug.png" style="height:200px"> </img>   
+   
 <img src="./images/backend_debug_cmd.png" style="height:150px"> </img>   
+  
 如果失败，网页无法打开，命令行也会报错  
 
 ## 案例
