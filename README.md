@@ -22,8 +22,6 @@
     - [后端](#后端-1)
   - [案例](#案例)
     - [前后端交互](#前后端交互)
-    - [前端交互 - component内部](#前端交互---component内部)
-    - [前端交互 - 不同component联动](#前端交互---不同component联动)
 
 ***  
   
@@ -221,13 +219,13 @@ DrawFunc.prototype.drawCircles = function (times_cnt) {
 这部分写法跟component差不多，区别在于要引用需要的component:  
 
 ```javascript  
-import VolumnView from './components/VolumnView/VolumnView.vue'  //对应component的位置  
+import VolumeView from './components/VolumeView/VolumeView.vue'  //对应component的位置  
 import CandleView from './components/CandleView/CandleView.vue'    
     
 export default {
       name: 'app',  
       components: {  
-        VolumnView,  //这里也要注明需要的component  
+        VolumeView,  //这里也要注明需要的component  
         CandleView,  
       },  
       // 其余部分略   
@@ -235,14 +233,23 @@ export default {
 ```  
       
 2. HTML模板 `<template>`  
-在此处写网页的HTML，此时每个component可用特殊标签代替，例如`<VolumnView></VolumnView>`,`<CandleView></CandleView>`
+在此处写网页的HTML，此时每个component可用特殊标签代替，例如`<VolumeView></VolumeView>`,`<CandleView></CandleView>`
   
 
 **(3) 数据请求与信息传递 (./service)**  
 1. 数据请求 (dataService.js)  
   
 dataService较为简单，即向python后端发送请求，获得后端发送回来的数据。  
-dataService.js前面不用动，只需在后面补充函数即可:  
+dataService.js前面不用动，只需在后面补充函数即可，有三种情况：  
+        
+| 请求情况 | 描述 |
+| :----: | :----: |
+| URL固定 | 向一个固定URL请求数据 |
+| Get请求 | URL与某些变量有关，会变化，直接把变量注明在URL中 |
+| Post请求 | URL与某些变量有关，但变量很复杂，没法直接注明在URL中 | 
+  
+（简要说明get和post的差别：get比较简单，因为变量直接写在URL中。但URL长度有限制（最多256个字符），字典、列表也放不进去，把重要信息直接写在URL中也有风险。相比而言，post将信息打包，在URL中不可见，更安全，能携带的信息也更丰富）  
+  
 ```javascript  
 //请求数据的URL固定  
 function getData(callback) {   //callback为回调函数，不需要写，只需要在调用dataService时补充即可
@@ -251,20 +258,35 @@ function getData(callback) {   //callback为回调函数，不需要写，只需
     request(url, params, GET_REQUEST, callback)
 }
 
-//请求数据的URL和某些变量有关，例如:
+//Get请求：请求数据的URL中含有简单变量，直接写在URL中，例如:
 //请求深圳11月17号的数据 - http://127.0.0.1:5010/shenzhen/1117/
 //请求广州12月18号的数据 - http://127.0.0.1:5010/guangzhou/1218/
-function getDataWithVar(city,date,callback) {   //callback为回调函数, 其余为变量
-    const url = `${dataServerUrl}/${city}/${date}/`   //此处需修改为请求数据的URL
+function getDataGet(city,date,callback) {   //callback为回调函数, 其余为变量
+    const url = `${dataServerUrl}/${city}/${date}`   //此处需修改为请求数据的URL
     const params = {}
     request(url, params, GET_REQUEST, callback)
+}
+
+//Post请求：请求数据时，需要提交更为复杂的信息
+//例如我想传递一个列表，传递一个字典，没法直接写在URL中
+function getDataPost(name,age,info,callback) {   //callback为回调函数, 其余为变量
+    const url = `${dataServerUrl}/getPostData`   //此处需修改为请求数据的URL
+    const params = {  //
+        "name": name,
+        "age": age,
+        "info": info,
+        //省略...   
+    }
+
+    request(url, params, POST_REQUEST, callback)   //注意改成POST_REQUEST
 }
 
 //将函数打包进dataService
 export default {
     ...,
     getData,   //注意在文件末尾export default处添加你写的函数
-    getDataWithVar,
+    getDataGet,
+    getDataPost,
     ...,
 }  
     
@@ -283,11 +305,27 @@ dataService.getData((callback) => {
     
 });
 
-//请求数据的URL和某些变量有关
+//Get请求：请求数据的URL中含有简单变量，直接写在URL中
 var city = "shenzhen";
 var date = 1117;
 
-dataService.getDataWithVar(city,date,(callback) => {  //除callback外，添加相关变量
+dataService.getDataGet(city,date,(callback) => {  //除callback外，添加相关变量
+    const data = callback.data;   //回调函数的输入包含其他信息，只有data属性是获得的数据
+    
+    //补充其他想要执行的代码，获得数据后开始执行
+    
+});
+
+//Post请求：请求数据时，需要提交更为复杂的信息
+var name = "Tim";
+var age = 18;
+var info = {
+    sex: "Male",
+    school: "SYSU",
+    hobbies: ["football","basketball"],
+};
+
+dataService.getDataPost(info,age,info,(callback) => {  //除callback外，添加相关变量
     const data = callback.data;   //回调函数的输入包含其他信息，只有data属性是获得的数据
     
     //补充其他想要执行的代码，获得数据后开始执行
@@ -361,7 +399,13 @@ mounted:{
   
 **(1) 设置请求数据URL (./routes/index.js)**   
 进入./routes文件夹，打开index.py  
-index.py记录了所有请求数据的URL，只需要在后面添加相应的函数即可:  
+index.py记录了所有请求数据的URL，只需要在后面添加相应的函数即可，也是分三种情况:  
+
+| 请求情况 | 描述 |
+| :----: | :----: |
+| URL固定 | 向一个固定URL请求数据 |
+| Get请求 | URL与某些变量有关，会变化，直接把变量注明在URL中 |
+| Post请求 | URL与某些变量有关，但变量很复杂，没法直接注明在URL中 | 
    
 ```python
 # 请求数据的URL固定
@@ -370,37 +414,52 @@ def _get_line_chart():
     result = dataService.get_line_chart_data()  # 读取、处理数据的函数
     return json.dumps(result)  # 返回json格式的数据给前端
     
-# 请求数据的URL和某些变量有关
+# Get请求：请求数据的URL和某些变量有关，变量直接写在URL中
 @app.route('/videoInfo/<video_id>')   #<video_id>指将URL的这一部分赋值给video_id变量
 # 例如：前端向http://localhost:5010/videoInfo/666/发送请求，那么video_id="666"
 def _get_video_info(video_id):
     result = dataService.get_video_info(video_id)  # 读取、处理数据的函数
     return json.dumps(result)  # 返回json格式的数据给前端
+
+# Post请求：提交给后端的数据更为复杂
+@app.route('/postTest')
+def _get_post_data():
+    data = request.json   #post请求的原始数据比较复杂，用.json方式直接获得我们需要的内容
+    result = dataService.get_post_data(data)  # 读取、处理数据的函数
+    return json.dumps(result)  # 返回json格式的数据给前端
 ```  
 
 **(2) 读取、处理数据 (./dataService/dataService.py)**   
 进入./dataService文件夹，打开dataService.py  
-dataService.py记录了所有读取、处理数据的函数，可直接在后面添加:  
+dataService.py记录了所有读取、处理数据的函数，封装在DataService类中，可直接在后面添加新的函数:  
 
 ```python
 import GlobalVariable as GV  #模板中将数据文件地址保存在GlobalVariable.py中，为了方便不做这一步也行
 
-# 直接读取某数据
-def get_line_chart_data(self):
-    with open('{}/lineChartData.json'.format(GV.DATA_FOLDER), 'r') as rf:  #读取本地数据
-        result = json.load(rf)
-    return result
+class DataService(object):   #定义DataService类
+    def __init__(self):   #初始化
+        self.GV = GV
+        print('=================================================')
+        return
 
-# 数据的位置和某些变量有关
-def get_video_info(self, video_id):
-    video_path = os.path.join(GV.VIDEO_FOLDER, '{}.mp4'.format(video_id))  #读取本地数据
-    
-    """
-    读取数据后的处理过程略
-    
-    """
-    
-    return video_info  # 返回处理好的数据
+    #其余函数略
+
+    # 直接读取某数据
+    def get_line_chart_data(self):
+        with open('{}/lineChartData.json'.format(GV.DATA_FOLDER), 'r') as rf:  #读取本地数据
+            result = json.load(rf)
+        return result
+
+    # 数据的位置和某些变量有关
+    def get_video_info(self, video_id):
+        video_path = os.path.join(GV.VIDEO_FOLDER, '{}.mp4'.format(video_id))  #读取本地数据
+        
+        """
+        读取数据后的处理过程略
+        
+        """
+        
+        return video_info  # 返回处理好的数据
 
 ```  
       
@@ -415,8 +474,60 @@ def get_video_info(self, video_id):
 
 ## 案例
 ### 前后端交互
- 
+比较简单，以VolumnView的绘制为例:  
   
-### 前端交互 - component内部
+**后端**  
+1. 需要用到的数据保存在 ./backend/app/data/StockDataDaily.json  
+2. 在dataService.py中添加读取数据的函数`get_daily_data`：  
+   
+```python
+class DataService(object):
+    #其余部分略
+    def get_daily_data(self):
+        with open('{}/StockDataDaily.json'.format(GV.DATA_FOLDER), 'r') as rf:
+            result = json.load(rf)
+        return result 
+```
+3. 接下来更改 ./backend/app/routes/index.py：  
+不妨令请求数据的URL为: `(后端地址省略)/stock/daily/`  
+  
+```python
+@app.route('/stock/daily')   # 设定URL
+def _get_volume_chart():
+    result = dataService.get_daily_data()
+    return json.dumps(result)   # 返回json格式的数据给前端
 
-### 前端交互 - 不同component联动
+```
+4. 后端部分搞定了  
+***  
+  
+**前端**  
+1. 首先在 ./frontend/src/service/ 中修改`dataService.js`  
+  
+```javascript
+//向后端发送请求的函数
+function dailyData(callback) {   //URL固定，不需要传入其他参数
+    const url = `${dataServerUrl}/stock/daily`
+    const params = {}
+    request(url, params, GET_REQUEST, callback)
+};
+```
+
+2. 我们希望页面加载结束就画图，在 ./frontend/src/components/Volumeiew/ 修改`VolumeView.js`:  
+  
+```javascript
+mounted: function () { //页面加载结束后执行
+        this.DrawVolume = new DrawVolume(this.containerId)
+        dataService.dailyData((stockDataDaily) => { //调用dataService
+            //处理数据的代码略
+            this.DrawVolume.layout(data);   //传入数据画图
+        })
+    },
+
+```
+3. 最后在主组件App.vue添加VolumnView即可  
+***  
+  
+**全过程示意图**  
+
+<img src="./images/volumeview.png" style="height:300px"> </img>   
