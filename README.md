@@ -689,11 +689,11 @@ mounted: function () {   //注意接收信号要卸载mounted内
 
 ### 挑战4：component内部交互
 Vue的component功能较多，可以自行尝试相应的功能，例如：  
-1. 网页的输入一般是HTML的`<input>`标签，要和Vue的v-model进行双向绑定，尝试获取网页输入  
-2. mounted尝试：页面加载后执行某个函数 
-3. watch尝试：尝试监听某个变量 (VideoView有参考)  
-4. v-if/v-show可以实现隐藏某个标签  
+1. 网页的输入一般是HTML的`<input>`标签，可以变成文本框、单选、多选、按钮……，要和Vue的v-model进行双向绑定，尝试获取网页输入  
+2. 在某个component增加一个按钮，点击按钮后画图  
+3. mounted尝试：页面加载后执行某个函数 
+4. watch尝试：尝试监听某个变量 (VideoView有参考)  
+5. v-if/v-show可以实现隐藏某个标签  
 
 ### 挑战5：信号传递  
-1. 在某个component增加一个按钮，点击按钮后画图  
-2. 通过pipeService在不同组件之间进行信息传递，例如通过VideoView控制另一个view画图，或者从某个component传递变量到另一个component  
+通过pipeService在不同组件之间进行信息传递，例如通过VideoView控制另一个view画图，或者从某个component传递变量到另一个component  
