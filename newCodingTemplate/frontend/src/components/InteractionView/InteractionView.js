@@ -24,16 +24,16 @@ export default {
         }
     },
 
-    mounted: function () {
+    mounted: function () {   //注意接收信号要卸载mounted内
         this.drawFunc = new DrawFunc();
         this.drawFunc.drawInit();   //加载drawInit函数
 
-        pipeService.onAddCircle((msg) => {
+        pipeService.onAddCircle((msg) => {   //接收信号
             console.log("InteractionView收到来自VideoView的msg，开始画图",msg);
             this.addCircle();
         })
 
-        pipeService.onRemoteClear((msg) => {
+        pipeService.onRemoteClear((msg) => {   //接收信号
             this.clearSvg();
         })
 
@@ -41,12 +41,12 @@ export default {
     },
 
     methods: { 
-        addCircle() {
+        addCircle() {   //画图函数
             this.click_cnt = this.click_cnt + 1;
             this.drawFunc.drawCircles(this.click_cnt);
         },
 
-        clearSvg() {
+        clearSvg() {   //清除svg
             this.drawFunc.clear();
             console.log("清理完成");
         }

@@ -13,7 +13,7 @@ export default {
     },
     data() {
         return {
-            remote_click_cnt: 0,
+            remote_click_cnt: 0,   //定义内部变量remote_click_cnt
         }
     },
     watch: {
@@ -26,12 +26,12 @@ export default {
         remoteAdd() {
             this.remote_click_cnt = this.remote_click_cnt + 1;
             const msg = {"test":123, "remote_click_cnt":this.remote_click_cnt};
-            pipeService.emitAddCircle(msg);
+            pipeService.emitAddCircle(msg);  //发送信号，同时传递变量msg
         },
 
         remoteClear() {
             console.log("远程清理");
-            pipeService.emitRemoteClear();
+            pipeService.emitRemoteClear();  //发送信号
         },
     },
     mounted: function () {

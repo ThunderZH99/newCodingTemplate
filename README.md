@@ -22,7 +22,14 @@
     - [后端](#后端-1)
   - [案例](#案例)
     - [前后端交互](#前后端交互)
-
+    - [前端交互](#前端交互)
+    - [pipeService实现信号传递](#pipeservice实现信号传递)
+  - [挑战](#挑战)
+    - [挑战1：熟悉框架](#挑战1熟悉框架)
+    - [挑战2：前后端交互-1](#挑战2前后端交互-1)
+    - [挑战3：前后端交互-2](#挑战3前后端交互-2)
+    - [挑战4：component内部交互](#挑战4component内部交互)
+    - [挑战5：信号传递](#挑战5信号传递)
 ***  
   
 ## 运行指南
@@ -537,3 +544,156 @@ mounted: function () { //页面加载结束后执行
 **全过程示意图**  
 
 <img src="./images/volumeview.png" style="height:300px"> </img>   
+  
+### 前端交互
+
+以InteractionView的绘制为例，该例子只涉及前端:   
+1. 画图相关函数放在drawD3.js中  
+2. 在InteractionView.html中添加两个按钮，一个画图，一个清除svg  
+  
+```html
+<div style="float: right;">
+    <input type="button" value="Add Circle" v-on:click="addCircle"/>   <!--v-on:click 点击后执行addCircle函数-->
+    <input type="button" value="Clear Circle" v-on:click="clearSvg"/>   <!--v-on:click 点击后执行clearSvg函数-->
+</div>
+```
+3. 在InteractionView.js中补全对应的函数addCircle和clearSvg  
+  
+```javascript
+    methods: { 
+        addCircle() {   //画图函数
+            this.click_cnt = this.click_cnt + 1;
+            this.drawFunc.drawCircles(this.click_cnt);
+        },
+
+        clearSvg() {   //清除svg
+            this.drawFunc.clear();
+            console.log("清理完成");
+        }
+    }
+
+```
+4. 效果：每点击一次Add Circle按钮，InteractionView中就会出现一个circle; 点击Clear Circle按钮清空画面  
+<img src="./images/interactionview_example.png" style="height:250px"> </img>  
+
+***  
+  
+**全过程示意图**  
+
+<img src="./images/interactionview.png" style="height:250px"> </img>   
+
+### pipeService实现信号传递  
+
+我们利用VideoView控制InteractionView绘图，该例子只涉及前端：  
+1. 在./VideoView/VideoView.html中添加两个按钮，一个画图，一个清除svg  
+  
+```html
+<div style="float: right;">
+    <input type="button" value="Remote Add Circle" v-on:click="remoteAdd"/>   <!--v-on:click 点击后执行remoteAdd函数-->
+    <input type="button" value="Remote Clear Circle" v-on:click="remoteClear"/>   <!--v-on:click 点击后执行remoteClear函数-->
+</div>
+
+```
+
+2. 在./service/pipeService.js中添加发送、接收信息的函数  
+  
+```javascript
+var pipeService = new Vue({
+    data: {
+        ADDCIRCLE: 'add_circle',   //信号名称
+        CLEAR: 'clear',
+    },
+    methods: {
+        emitAddCircle: function (msg) {  //发送add_circle信号
+            this.$emit(this.ADDCIRCLE, msg)
+        },
+        onAddCircle: function (callback) {  //接收add_circle信号
+            this.$on(this.ADDCIRCLE, function (msg) {
+                callback(msg)
+            })
+        },
+    //另外一个信号同理，略
+```
+
+3. 在./VideoView/VideoView.js中补全对应的函数remoteAdd和remoteClear，并发送信号  
+我们添加一个内部变量remote_click_cnt，每点击一次Remote Add Circle按钮，这个变量增加1  
+绘图时，我们将remote_click_cnt这个变量也通过pipeService发送到InteractionView  
+  
+```javascript
+import pipeService from '../../service/pipeService.js'  //注意引入pipeService
+
+//前面省略
+data() {
+    return {
+        remote_click_cnt: 0,   //定义内部变量remote_click_cnt
+    }
+},
+    
+methods: {
+remoteAdd() {
+    this.remote_click_cnt = this.remote_click_cnt + 1;
+    const msg = {"test":123, "remote_click_cnt":this.remote_click_cnt};
+    pipeService.emitAddCircle(msg);  //发送信号，同时传递变量msg
+},
+
+remoteClear() {
+    console.log("远程清理");
+    pipeService.emitRemoteClear();  //发送信号
+},
+},
+
+//...
+    
+```
+
+4. 在./InteractionView/InteractionView.js中接收信号
+  
+```javascript
+import pipeService from '../../service/pipeService.js'  //注意引入pipeService
+
+//前面省略
+mounted: function () {   //注意接收信号要卸载mounted内
+    this.drawFunc = new DrawFunc();
+    this.drawFunc.drawInit();   //加载drawInit函数
+
+    pipeService.onAddCircle((msg) => {   //接收信号
+        console.log("InteractionView收到来自VideoView的msg，开始画图",msg);
+        this.addCircle();
+    })
+
+    pipeService.onRemoteClear((msg) => {   //接收信号
+        this.clearSvg();
+    })
+},
+    
+```  
+4. 效果：每在VideoView中点击一次Remote Add Circle按钮，InteractionView中就会出现一个circle; 点击Remote Clear Circle按钮清空画面  
+<img src="./images/cross_view_example.png" style="height:250px"> </img>  
+
+***  
+  
+**全过程示意图**  
+
+<img src="./images/cross_view.png" style="height:500px"> </img> 
+
+## 挑战  
+### 挑战1：熟悉框架
+看懂component的结构，仿照VolumnView或CandleView的结构，设计一个自己的View，画图内容随意，不需要请求后端获得数据
+
+### 挑战2：前后端交互-1
+仿照URL的三种情况，前后端各写三个函数，从前端向后端发送数据，看看后端会收到什么（使用python的print函数可以在命令行输出），后端的函数也可以写一些返回值，看一下前端能否收到。
+
+### 挑战3：前后端交互-2
+之前画图，如果用到别人的数据，需要上传到github或者其他网站上，再读取对应的URL地址，比较麻烦。现在有了Web框架，我们可以直接在后端读取本地文件，以json格式返回给前端。  
+仿照VolumnView或CandleView的结构，设计一个自己的View，画一个自己画过的图，要求数据保存在本地，前端请求后端获得数据并画图    
+
+### 挑战4：component内部交互
+Vue的component功能较多，可以自行尝试相应的功能，例如：  
+1. 网页的输入一般是HTML的`<input>`标签，要和Vue的v-model进行双向绑定，尝试获取网页输入  
+2. mounted尝试：页面加载后执行某个函数 
+3. watch尝试：尝试监听某个变量 (VideoView有参考)  
+4. v-if/v-show可以实现隐藏某个标签  
+
+### 挑战5：信号传递  
+1. 在某个component增加一个按钮，点击按钮后画图  
+2. 通过pipeService在不同组件之间进行信息传递，例如通过VideoView控制另一个view画图，或者从某个component传递变量到另一个component  
