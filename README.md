@@ -574,13 +574,13 @@ mounted: function () { //页面加载结束后执行
 
 ```
 4. 效果：每点击一次Add Circle按钮，InteractionView中就会出现一个circle; 点击Clear Circle按钮清空画面  
-<img src="./images/interactionview_example.png" style="height:250px"> </img>  
+<img src="./images/interactionview_example.png" style="height:220px"> </img>  
 
 ***  
   
 **全过程示意图**  
 
-<img src="./images/interactionview.png" style="height:250px"> </img>   
+<img src="./images/interactionview.png" style="height:200px"> </img>   
 
 ### pipeService实现信号传递  
 
