@@ -282,7 +282,8 @@ function getDataGet(city,date,callback) {   //callback为回调函数, 其余为
 //例如我想传递一个列表，传递一个字典，没法直接写在URL中
 function getDataPost(name,age,info,callback) {   //callback为回调函数, 其余为变量
     const url = `${dataServerUrl}/getPostData`   //此处需修改为请求数据的URL
-    const params = {  //
+    
+    const params = {  //通过post请求发送的数据
         "name": name,
         "age": age,
         "info": info,
