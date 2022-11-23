@@ -141,7 +141,7 @@ Vue 2.0与3.0有一定差别，但基本写法差异不大，学哪个都行
 下面简要说明:  
 **(1) 各个组件 (./components)**   
 网站的各个View其实就是一个个component  
-<img src="./images/overview.png" style="height:200px"> </img>  
+<img src="./images/overview.png" style="height:350px"> </img>  
 
 每个component都有一个独立的文件夹，HTML、CSS、JS代码都可以独立修改，最后在主组件组合即可。  
 以InteractionView为例，在./components/InteractionView可以看到:     
@@ -260,7 +260,15 @@ dataService.js前面不用动，只需在后面补充函数即可，有三种情
 | Post请求 | URL与某些变量有关，但变量很复杂，没法直接注明在URL中 | 
   
 （简要说明get和post的差别：get比较简单，因为变量直接写在URL中。但URL长度有限制（最多256个字符），字典、列表也放不进去，把重要信息直接写在URL中也有风险。相比而言，post将信息打包，在URL中不可见，更安全，能携带的信息也更丰富）  
+
+**三种情况示意图**  
   
+<img src="./images/data_url.png" style="width:600px"> </img>   
+<img src="./images/data_url_get.png" style="width:600px"> </img>   
+<img src="./images/data_url_post.png" style="width:600px"> </img>   
+
+***    
+
 ```javascript  
 //请求数据的URL固定  
 function getData(callback) {   //callback为回调函数，不需要写，只需要在调用dataService时补充即可
