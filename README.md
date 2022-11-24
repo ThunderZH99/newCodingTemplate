@@ -278,8 +278,8 @@ function getData(callback) {   //callback为回调函数，目前不需要写，
 }
 
 //Get请求：请求数据的URL中含有简单变量，直接写在URL中，例如:
-//请求深圳11月17号的数据 - http://127.0.0.1:5010/shenzhen/1117/
-//请求广州12月18号的数据 - http://127.0.0.1:5010/guangzhou/1218/
+//请求深圳11月17号的数据 - http://127.0.0.1:5010/shenzhen/1117
+//请求广州12月18号的数据 - http://127.0.0.1:5010/guangzhou/1218
 function getDataGet(city,date,callback) {   //callback为回调函数, 其余为变量
     const url = `${dataServerUrl}/${city}/${date}`   //此处需修改为请求数据的URL
     const params = {}
@@ -485,7 +485,7 @@ class DataService(object):   #定义DataService类
       
 **(3) 判断是否能获取数据**    
   
-直接用浏览器访问数据请求地址，例如: http://127.0.0.1:5010/stock/daily/  
+直接用浏览器访问数据请求地址，例如: http://127.0.0.1:5010/stock/daily  
 如果成功，将会看到一个数据页面，运行后端的命令行也会有提示:  
   
 <img src="./images/backend_debug.png" style="height:200px"> </img>   
