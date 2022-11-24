@@ -511,7 +511,7 @@ class DataService(object):
         return result 
 ```
 3. 接下来更改 ./backend/app/routes/index.py：  
-不妨令请求数据的URL为: `(后端地址省略)/stock/daily/`  
+不妨令请求数据的URL为: `(后端地址省略)/stock/daily`  
   
 ```python
 @app.route('/stock/daily')   # 设定URL
