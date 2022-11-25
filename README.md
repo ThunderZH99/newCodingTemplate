@@ -319,7 +319,7 @@ import dataService from '../../service/dataService.js'  //注意import
 
 //请求数据的URL固定
 dataService.getData((callback) => {
-    const data = callback.data;   //回调函数的输入是后端返回的数据，但只有data属性是我们需要的内容
+    const data = callback.data;   //回调函数的输入callback是后端返回的所有内容，但只有data属性是我们需要的数据
     
     //补充其他想要执行的代码，获得数据后开始执行
     
@@ -330,7 +330,7 @@ var city = "shenzhen";
 var date = 1117;
 
 dataService.getDataGet(city,date,(callback) => {  //除callback外，添加相关变量
-    const data = callback.data;   //回调函数的输入是后端返回的数据，但只有data属性是我们需要的内容
+    const data = callback.data;   //回调函数的输入callback是后端返回的所有内容，但只有data属性是我们需要的数据
     
     //补充其他想要执行的代码，获得数据后开始执行
     
@@ -346,7 +346,7 @@ var info = {
 };
 
 dataService.getDataPost(info,age,info,(callback) => {  //除callback外，添加相关变量
-    const data = callback.data;   //回调函数的输入是后端返回的数据，但只有data属性是我们需要的内容
+    const data = callback.data;   //回调函数的输入callback是后端返回的所有内容，但只有data属性是我们需要的数据
     
     //补充其他想要执行的代码，获得数据后开始执行
     
