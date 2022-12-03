@@ -43,6 +43,7 @@ backend/data/dataFile/xgboost/XG_model2.json
 
 ### 版本日志  
 `git log`  
+输入q退出  
 
 ## 代理软件配置  
 ```
