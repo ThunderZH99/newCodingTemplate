@@ -30,6 +30,7 @@ backend/data/dataFile/xgboost/XG_model2.json
 
 ### 3. 上传至github
 `git push origin master`  
+master是分支名，有可能是main
 
 ## 远程同步  
 `git pull orgin master`  
@@ -66,7 +67,8 @@ git rm --cached backend/data/big_file.json
 # 删除某文件夹  
 git rm -r --cached backend/data/big_file_folder/
 ```  
-之后正常push到远端
+之后正常push到远端  
+注意，这只是从暂存区删除，容易重蹈覆辙，记得及时更新.gitignore  
 
 ### commit多次  
 push失败之后又commit多次, 导致本地领先远端多个版本  
