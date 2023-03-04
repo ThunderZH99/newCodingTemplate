@@ -17,11 +17,11 @@ backend/data/dataFile/xgboost/XG_model2.json
 
 ### 修改.gitignore  
 .gitignore在第一次commit时生效，建议直接配置好，如果中途修改，先清空文件追踪  
-`git rm -r --cached`    
+`git rm -r --cached .`    
 之后正常提交代码即可  
 
 ## 提交  
-**提交前建议查看本地与远程的差别**  
+**提交前建议查看本地与远程的差别(使用git pull)**  
 ### 1. 文件追踪  
 `git add .`  
 
@@ -33,7 +33,16 @@ backend/data/dataFile/xgboost/XG_model2.json
 master是分支名，有可能是main
 
 ## 远程同步  
-`git pull orgin master`  
+`git pull orgin master` 
+
+## 冲突解决
+### 本地和远程都修改了某文件，但本地没有上传  
+1. 运行`git pull origin master`，报错：error: Your local changes to the following files would be overwritten  
+2. 暂存本地修改：`git stash`  
+3. 下载远端文件：`git pull origin master`  
+4. 将本地暂存内容与远端内容合并：`git stash pop stash@{0}`(取出暂存栈中编号为0的记录，取出后删除暂存)
+5. 手动修改对应的文件，选择保留的代码
+6. 其他：查看暂存栈：`git stash list`
 
 ## 信息查看  
 ### 本地修改情况
