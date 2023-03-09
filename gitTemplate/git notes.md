@@ -40,9 +40,9 @@ master是分支名，有可能是main
 1. 运行`git pull origin master`，报错：error: Your local changes to the following files would be overwritten  
 2. 暂存本地修改：`git stash`  
 3. 下载远端文件：`git pull origin master`  
-4. 将本地暂存内容与远端内容合并：`git stash pop stash@{0}`(取出暂存栈中编号为0的记录，取出后删除暂存)
+4. 将本地暂存内容与远端内容合并：`git stash pop stash@{0}`(取出暂存栈中编号为0的记录)
 5. 手动修改对应的文件，选择保留的代码
-6. 其他：查看暂存栈：`git stash list`
+6. 其他：查看暂存栈：`git stash list`  清空暂存栈: `git stash clear`  
 
 ## 信息查看  
 ### 本地修改情况
