@@ -439,7 +439,7 @@ def _get_video_info(video_id):
     return json.dumps(result)  # 返回json格式的数据给前端
 
 # Post请求：提交给后端的数据更为复杂
-@app.route('/postTest')
+@app.route('/postTest',methods=['POST'])   #注明接收post请求
 def _get_post_data():
     data = request.json   #post请求的原始数据比较复杂，用.json方式直接获得我们需要的内容
     result = dataService.get_post_data(data)  # 读取、处理数据的函数
