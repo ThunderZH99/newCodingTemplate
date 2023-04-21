@@ -1,0 +1,63 @@
+<div id="overview">
+    <div class="card">
+        <div class="card-header">
+            <div style="float: left; margin-right:40px">
+                <h6 style="display: inline; user-select: none">Rank of Passenger Volume</h6>
+            </div>
+        </div>
+
+        <div class="card-block" id="overviewContainer">
+            <div class="row">
+                <div class="col">
+
+                    <div class="m-2">
+                        <div class="input-group" id="inputGroup_Model_div">
+                            <label class="input-group-text" for="inputGroup_Model"><span class="text-center">Sorted by</span></label>
+                            <select class="form-select" id="inputGroup_Model" v-model="order">
+                                <option value="totalCnt" selected>总量</option>
+                                <option value="totalIn">入站</option>
+                                <option value="totalOut">出站</option>
+                            </select>
+            
+                            <div class="input-group-text">
+                                <label class="form-check-label" for="flexCheckChecked">Ascending&nbsp;&nbsp;</label>
+                                <input class="form-check-input" type="checkbox" value="" v-model="ascending_flag" id="flexCheckChecked">
+                            </div>
+                            
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    
+                    <table class="table table-border table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="row">地铁站</th>
+                                <th scope="row">客运量</th>
+                                <!-- <th scope="row">入站</th>
+                                <th scope="row">出站</th> -->
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr v-for="(d,i) in stations_info" v-on:click="selectStation(d.station)">
+                                <td scope="row" style="width:100px;">{{d.station}}</td>
+                                <td style="width:200px;"><svg class="svg-container"></svg></td>
+                                <!-- <td>{{d.totalIn}}</td>
+                                <td>{{d.totalOut}}</td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

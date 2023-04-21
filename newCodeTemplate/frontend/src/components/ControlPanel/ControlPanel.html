@@ -1,0 +1,56 @@
+<div id="controlpanel">
+    <div class="card">
+        <div class="card-header">
+            <div style="float: left; margin-right:40px">
+                <h6 style="display: inline; user-select: none">Control Panel</h6>
+            </div>
+        </div>
+        <div class="card-block" id="controlPanelContainer">
+            
+            <div class="row pt-2 justify-content-center mt-2 mb-3">
+                <div class="col-9">
+                    <div class="input-group" id="inputGroup_Model_div">
+                        <label class="input-group-text" for="inputGroup_Model"><span class="text-center">District</span></label>
+                        <select class="form-select" id="inputGroup_Model" v-model="district">
+                          <option value="福田区" selected>福田区</option>
+                          <option value="南山区">南山区</option>
+                          <option value="罗湖区">罗湖区</option>
+                          <option value="龙岗区">龙岗区</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <table class="table table-border table-hover border-top">
+                        <tbody>
+                            <tr>
+                                <th scope="row">地铁站数量</th>
+                                <td>{{district_info.stationCnt}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">客运量总量</th>
+                                <td>{{district_info.totalCnt}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">早高峰客运量</th>
+                                <td>{{district_info.moringPeak}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">晚高峰客运量</th>
+                                <td>{{district_info.nightPeak}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">平均小时客运量</th>
+                                <td>{{district_info.meanCnt}}</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

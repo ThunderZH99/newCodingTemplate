@@ -1,0 +1,7 @@
+# frontend
+newCodeTemplate/frontend/node_modules
+
+# backend
+newCodeTemplate/backend/app/__pycache__/*.pyc
+newCodeTemplate/backend/app/dataService/__pycache__/*.pyc
+newCodeTemplate/backend/app/routes/__pycache__/*.pyc
