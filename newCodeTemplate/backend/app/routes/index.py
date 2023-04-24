@@ -28,9 +28,17 @@ def index():
     return json.dumps('/')
     # return render_template('index.html')
 
-@app.route('/test')
+@app.route('/test')   # 请求该数据的URL
 def test():
-    return json.dumps('test')
+    result = {"test":123}
+    return json.dumps(result)  # 返回json格式的数据给前端
+
+@app.route('/postTest',methods=['POST'])   #注明接收post请求
+def _get_post_data():
+    post_request = request.json   #post请求的原始数据比较复杂,用.json方式直接获得我们需要的内容
+    print("收到post请求:", post_request)
+    result = {"test":'post'}
+    return json.dumps(result)  # 返回json格式的数据给前端
 
 @app.route('/district-station/<district>')
 def _get_stations_by_district(district):

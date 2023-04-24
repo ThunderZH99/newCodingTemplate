@@ -24,6 +24,22 @@ function request(url, params, type, callback) {
     })
 }
 
+function getTest(callback) {
+    const url = `${dataServerUrl}/test`
+    const params = {}
+    request(url, params, GET_REQUEST, callback)   
+}
+
+function postTest(msg, callback) {
+    const url = `${dataServerUrl}/postTest`
+    const params = {
+        "number": 123,
+        "name": "POST",
+        "msg": msg
+    }
+
+    request(url, params, POST_REQUEST, callback) 
+}
 
 function getStationsByDistrict(district, callback) {
     const url = `${dataServerUrl}/district-station/${district}`
@@ -57,5 +73,7 @@ export default {
     getStationsByDistrict,
     getDistrictInfo,
     getStationInfo,
-    getMapViewData
+    getMapViewData,
+    getTest,
+    postTest
 }

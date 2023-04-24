@@ -39,17 +39,11 @@ export default {
   },
   data() {
     return {
-        videoList: [],
-        videoId: 'oceans',
-        videoData: {}
+  
     }
   },
   mounted: function () {
-    // this.$nextTick(() => {
-    //   dataService.initialization(this.videoId, (data) => {
-    //     console.log('testing: ', data['data']) /* eslint-disable-line */
-    //   })
-    // })
+
   }
 }
 </script>

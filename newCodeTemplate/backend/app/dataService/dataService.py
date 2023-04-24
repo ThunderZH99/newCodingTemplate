@@ -26,8 +26,6 @@ class DataService(object):
         print(self.GV.test)
 
     def get_stations_by_district(self,district):
-        print("选择了",district)
-
         data = pd.read_csv("{}/station_info.csv".format(GV.DATA_FOLDER))
         data = data[data["district"]==district]
 
