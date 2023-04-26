@@ -28,6 +28,11 @@ export default {
         this.station = defaultStation.station
         this.$nextTick(() => pipeService.emitSelectStation(defaultStation))
 
+        pipeService.onSelectDistrict((_) => {
+            this.station = ""
+            this.DrawChart.clear()
+        })
+
         pipeService.onSelectStation((msg) => {
             this.station = msg.station
             dataService.getStationInfo(msg.station, (callback) => {

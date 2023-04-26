@@ -15,10 +15,11 @@
 2. JavaScript基本语法 (变量, 常用数据类型, 循环, 判断, 函数, 其实感觉跟C语言很像)
 3. D3.js: 简单画个柱状图、折线图、散点图, 体会到d3画图的特点即可(Data Driven Document, 将数据与图表元素绑定)    
 4. Vue: 前端框架, 了解component的概念, 如何实现一个component, Vue如何进行数据双向绑定(v-model, v-bind, v-if, v-for), 了解component内部的this
+5. Bootstrap(可选): Boostrap有很多内置的css样式, 可以快速构建一个HTML页面, 但知识点比较零碎, 建议了解最基本的定位系统(row, col, container, container-fluid)即可, 其他内容可以结合官方文档+chatGPT 
 
 **后端:**  
 1. Python基本语法  
-2. Flask(可选): 相对于Vue, Flask比较直接, 直接看框架也行  
+2. Flask(可选): 相对于Vue, Flask容易理解很多, 直接看框架也行  
 
 
 ***  
@@ -518,7 +519,9 @@ class DataService(object):   #定义DataService类
 如果失败,网页无法打开,命令行也会报错  
 
 ## 可能遇到的问题
-1. 前端报错
+1. Node.js版本问题: `npm install .`报错, 检查Node.js版本, 建议安装v16的Node.js
+2. 前端报错: 没有找到某文件: 回到对应的component文件夹, 仔细检查几个文件彼此之间的引入关系是否有问题, 是否写错了文件名
+<img src="./images/not_found.png" style="height:100px"> </img> 
 
-2. 修改了后端代码,没有效果  
+3. 修改了后端代码,没有效果  
 关闭后端(ctrl+c),重新启动后端   

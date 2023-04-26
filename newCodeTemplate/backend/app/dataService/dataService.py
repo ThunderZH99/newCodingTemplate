@@ -53,7 +53,6 @@ class DataService(object):
 
             result.append(station_info) 
                    
-        
         return result
     
     def get_station_info(self,station):
