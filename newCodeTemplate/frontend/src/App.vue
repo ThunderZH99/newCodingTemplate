@@ -49,6 +49,8 @@ export default {
 </script>
 
 <style>
+
+/* 此处定义全局样式 */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -72,6 +74,16 @@ footer {
   margin-left: 5px;
 }
 
+text {
+    font-weight: 400;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+    /* font-size: 14px; */
+}
+
+.title {
+    font-weight: 700;
+    font-size: 20px;
+  }
 
 
 </style>

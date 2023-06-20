@@ -9,8 +9,7 @@ export default {
     components: {
     },
     props: {
-        videoId: String,
-        videoData: Object
+
     },
     data() {
         return {

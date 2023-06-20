@@ -14,10 +14,4 @@ window.d3 = d3
 import $ from 'jquery'
 window.$ = $
 
-// Vue.config.productionTip = false
-
-// new Vue({
-//   render: h => h(App),
-// }).$mount('#app')
-
 var app = createApp(App).mount("#app");

@@ -20,13 +20,6 @@
         position: relative;
     }
 
-
-    text {
-        font-weight: 300;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
-        font-size: 14px;
-    }
-
     #overviewContainer {
         /* height: 243px; */
         height: 600px;

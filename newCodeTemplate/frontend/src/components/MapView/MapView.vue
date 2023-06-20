@@ -20,12 +20,6 @@
         position: relative;
     }
 
-    text {
-        font-weight: 400;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
-        /* font-size: 14px; */
-    }
-
     .station-text {
         font-weight: 700;
     }

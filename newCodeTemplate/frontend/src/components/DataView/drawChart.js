@@ -9,7 +9,7 @@ var DrawChart = function () {
     this.width = $('#pieChart').width();
     this.height = $('#pieChart').height();
 
-    const margin = {top:60, bottom:40, left:50, right:10}
+    const margin = {top:60, bottom:50, left:50, right:10}
     this.margin = margin
 
     const idList = ['#pieChart','#lineChart','#stackBarChart']
@@ -137,7 +137,7 @@ DrawChart.prototype.drawLineChart = function (data) {
 
     xAxisG.append('text')
         .attr('class', 'axis-label')
-        .attr('y', 35)
+        .attr('y', 40)
         .attr('x', innerWidth / 2)
         .attr('fill', 'black')
         .text(xAxisLabel);
@@ -238,7 +238,7 @@ DrawChart.prototype.drawStackBarChart = function (data) {
 
     xAxisG.append('text')
         .attr('class', 'axis-label')
-        .attr('y', 35)
+        .attr('y', 40)
         .attr('x', innerWidth / 2)
         .attr('fill', 'black')
         .text(xAxisLabel);

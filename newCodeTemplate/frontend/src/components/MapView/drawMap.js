@@ -155,7 +155,7 @@ DrawMap.prototype.drawStations = function (data) {
         .style('font-size', 0.9*zoom)
         .text(station_data.station)
 
-      d3.select(this).on('click', (event,d) => click(event,d))
+      d3.select(this).on('click', (event,d) => click(event,d)) 
 
   }
 

@@ -22,16 +22,6 @@
         position: relative;
     }
 
-    text {
-        font-weight: 400;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
-        font-size: 14px;
-    }
-
-    .title {
-        font-weight: 700;
-        font-size: 20px;
-    }
 
     .figure {
         height: 300px;

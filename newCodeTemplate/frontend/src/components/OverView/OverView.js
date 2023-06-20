@@ -10,15 +10,15 @@ export default {
     components: {
     },
     props: {
-        videoId: String,
-        videoData: Object
+
     },
     data() {
         return {
             containerId: 'overviewContainer',   //此处记得改
             order: 'totalCnt',
             ascending_flag: false,
-            stations_info: []
+            stations_info: [],
+            selected_station: null,
         }
     },
     watch: {
@@ -59,6 +59,7 @@ export default {
     methods: { 
         selectStation: function(station) {
             console.log("选择地铁站:",station)
+            this.selected_station = station;
 
             const d = this.stations_info.filter(d => d.station==station)[0]
             const msg = {
