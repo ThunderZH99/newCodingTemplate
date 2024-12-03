@@ -27,7 +27,7 @@ export default {
             dataService.getMapViewData(district,(callback) => {
                 const data = callback.data
                 this.DrawMap.drawStations(data)
-
+                
                 this.$nextTick(() => {
                     const meanLat = mean(data, d => d.lat)
                     const meanLng = mean(data, d => d.lng)
