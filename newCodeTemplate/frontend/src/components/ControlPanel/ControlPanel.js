@@ -12,7 +12,6 @@ export default {
     },
     data() {
         return {
-            containerId: 'controlPanelContainer',   //此处记得改
             district: globalConfig.defaultDistrict,
             district_info: {}
         }
@@ -24,7 +23,7 @@ export default {
         }
     },
     mounted: function () {
-        this.$nextTick(() => {
+        this.$nextTick(() => {   // 让函数等待网页加载完毕后再执行
             pipeService.emitSelectDistrict(this.district)
         })
 

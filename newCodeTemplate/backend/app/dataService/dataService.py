@@ -1,32 +1,17 @@
 # -*- coding: utf-8 -*-
-import time
 import json
 import pandas as pd
 import os
-import sys
-import cv2
 
-try:
-    import GlobalVariable as GV
-except ImportError:
-    import app.dataService.GlobalVariable as GV
 
 class DataService(object):
     def __init__(self):
-        self.GV = GV
         print('=================================================')
         return
 
-    def initialization(self, video_id):
-        self.video_id = video_id
-        result = {'test': 'test'}
-        return result
-
-    def test(self):
-        print(self.GV.test)
 
     def get_stations_by_district(self,district):
-        data = pd.read_csv("{}/station_info.csv".format(GV.DATA_FOLDER))
+        data = pd.read_csv("./app/data/station_info.csv")
         data = data[data["district"]==district]
 
         result = json.loads(data.to_json(orient="records"))
@@ -34,7 +19,7 @@ class DataService(object):
         return result
     
     def get_district_info(self,district):
-        data = pd.read_csv("{}/district_info.csv".format(GV.DATA_FOLDER))
+        data = pd.read_csv("./app/data/district_info.csv")
         data = data[data["district"]==district]
 
         result = json.loads(data.to_json(orient="records"))
@@ -43,7 +28,7 @@ class DataService(object):
         return result
     
     def get_mapview_data(self,district):
-        folder = "{}/{}/".format(GV.MAPVIEW_FOLDER,district)
+        folder = "./app/data/MapView/{}/".format(district)
 
         result = []
         for file in os.listdir(folder):
@@ -56,7 +41,7 @@ class DataService(object):
         return result
     
     def get_station_info(self,station):
-        with open("{}/DataView/{}.json".format(GV.DATA_FOLDER,station),'r') as f:
+        with open("./app/data/DataView/{}.json".format(station),'r') as f:
             result = json.load(f)
 
         return result

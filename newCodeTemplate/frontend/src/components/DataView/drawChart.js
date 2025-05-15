@@ -1,9 +1,6 @@
-/* global d3 $ */
-// import List from 'list.js'
-// import pipeService from '../../service/pipeService'
-// import globalConfig from '../../service/globalConfig'
-import 'd3'
-import globalConfig from '../../service/globalConfig';
+import * as d3 from 'd3'
+import * as $ from 'jquery'
+import globalConfig from '../../service/globalConfig.js';
 
 var DrawChart = function () {	
     this.width = $('#pieChart').width();

@@ -1,26 +1,14 @@
 '''
     The RESTful style api server
 '''
-from pprint import pprint
 
 from app import app
 from app import dataService
 
 import json
-import numpy as np
-import os
-import re
-import logging
-import mimetypes
-import subprocess
 
-from flask import send_file, request, jsonify, render_template, send_from_directory, Response
-from flask_cors import cross_origin
+from flask import request
 
-LOG = logging.getLogger(__name__)
-
-MB = 1 << 20
-BUFF_SIZE = 10 * MB
 # ################################################################################ route
 @app.route('/')
 def index():

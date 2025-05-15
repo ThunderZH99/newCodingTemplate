@@ -38,7 +38,8 @@
                         <thead>
                             <tr>
                                 <th scope="row">地铁站</th>
-                                <th scope="row">客运量</th>
+                                <th scope="row">总入站</th>
+                                <th scope="row">总出站</th>
                             </tr>
                         </thead>
 
@@ -48,7 +49,9 @@
                                 :class="{ 'table-primary': d.station === selected_station }"
                                 >
                                 <td scope="row" style="width:100px;">{{d.station}}</td>
-                                <td style="width:200px;"><svg class="svg-container"></svg></td>
+                                <td scope="row" style="width:100px;">{{d.totalIn}}</td>
+                                <td scope="row" style="width:100px;">{{d.totalOut}}</td>
+                                <!-- <td style="width:200px;"><svg class="svg-container"></svg></td> -->
                             </tr>
                         </tbody>
                     </table>

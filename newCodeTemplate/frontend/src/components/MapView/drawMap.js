@@ -1,12 +1,12 @@
-/* global d3 $ AMap */
+/* global AMap */
+// 第一行不要删, 不是注释
 // Amap默认挂载到window上, 全局引用后可以直接调用AMap
 
-import 'd3'
-import globalConfig from '../../service/globalConfig'
-import pipeService from '../../service/pipeService';
+import * as d3 from 'd3'
+import globalConfig from '../../service/globalConfig.js'
+import pipeService from '../../service/pipeService.js';
 
-let DrawMap= function (id) {	
-	this.id = id;
+let DrawMap= function () {	
 
   const zooms = [14, 15]
   this.zooms = zooms
@@ -15,7 +15,7 @@ let DrawMap= function (id) {
       viewMode:"3D",    //是否为3D地图模式
       zoom: 14,           //初始化地图级别
       // center:[114.03,22.55], //初始化地图中心点位置
-      center:[113.928432, 22.525142], //初始化地图中心点位置
+      center:[113.968432, 22.525142], //初始化地图中心点位置
       zooms: zooms,
     });
 
@@ -39,11 +39,13 @@ let DrawMap= function (id) {
 
     this.marker = "";
 
+    // 动态更新地图
     const _this = this
     function onRender() {
       _this.renderUpdate(_this.svgNode)
     }
 
+    // 绘制legend
     const svg = d3.select(this.svgNode)
     const legendG = svg.append('g')
       .attr('class', 'legend')
@@ -62,7 +64,6 @@ let DrawMap= function (id) {
         .attr('dy', '0.35em')
         .text(d => d)
 
-    // pipeService.onSelectStation((msg) => this.map.setCenter([msg.lng,msg.lat]))   // pipeService写在里面也可以
 }
 
 
@@ -162,6 +163,7 @@ DrawMap.prototype.drawStations = function (data) {
   gGlpyh.each(drawGlyph)    
 }
 
+// 动态更新地图
 DrawMap.prototype.renderUpdate = function(svgNode) {
     const svg = d3.select(svgNode)
 

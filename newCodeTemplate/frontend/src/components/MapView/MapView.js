@@ -14,21 +14,20 @@ export default {
     },
     data() {
         return {
-            containerId: 'map',   //此处记得改
         }
     },
     watch: {
 
     },
     mounted: function () {
-        this.DrawMap = new DrawMap(this.containerId)
+        this.DrawMap = new DrawMap()
 
         pipeService.onSelectDistrict((district) => {
             dataService.getMapViewData(district,(callback) => {
                 const data = callback.data
                 this.DrawMap.drawStations(data)
-                
-                this.$nextTick(() => {
+
+                this.$nextTick(() => {   // 让函数等待网页加载完毕后再执行
                     const meanLat = mean(data, d => d.lat)
                     const meanLng = mean(data, d => d.lng)
                       
